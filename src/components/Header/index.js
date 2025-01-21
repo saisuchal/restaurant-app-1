@@ -13,9 +13,9 @@ const Header = () => (
         <HeaderDiv>
           <h1>{restaurantName}</h1>
           <OrdersDiv>
-            <p className='myorders'>My Orders</p>
+            <p className="myorders">My Orders</p>
             <CartDiv>
-              <AiOutlineShoppingCart className='icon' />
+              <AiOutlineShoppingCart className="icon" />
               <p>{cartLength}</p>
             </CartDiv>
           </OrdersDiv>

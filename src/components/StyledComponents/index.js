@@ -19,9 +19,9 @@ export const HeaderDiv = styled(FlexRow)`
   border-bottom: 2px solid lightgrey;
 `
 export const MenuButton = styled.button`
-  min-width:150px;
-  font-size:16px;
-  padding:10px;
+  min-width: 150px;
+  font-size: 16px;
+  padding: 10px;
   background: transparent;
   border: 0px none;
   border-bottom: 2px solid
@@ -31,8 +31,8 @@ export const MenuButton = styled.button`
 export const MenuButtonDiv = styled(FlexRow)`
   padding-top: 5px;
   border-bottom: 2px solid lightgrey;
-  overflow:auto;
-  justify-content:space-between;
+  overflow: auto;
+  justify-content: space-between;
 `
 
 export const MenuItemDiv = styled(FlexColumn)`
@@ -40,10 +40,10 @@ export const MenuItemDiv = styled(FlexColumn)`
 `
 export const MenuItem = styled(FlexRow)`
   justify-content: space-between;
-  padding:10px;
-  border-radius:2px;
+  padding: 10px;
+  border-radius: 2px;
   border: 1px solid grey;
-  margin:4px;
+  margin: 4px;
 `
 
 export const QuantityButtonDiv = styled(FlexRow)`
@@ -52,39 +52,39 @@ export const QuantityButtonDiv = styled(FlexRow)`
   border-radius: 2vh;
   background-color: green;
   color: white;
-  justify-content:space-around;
-  align-items:center;
-  padding:10px;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
 `
 export const QuantityButton = styled.button`
-  background:transparent;
+  background: transparent;
   color: white;
-  border-width:0px;
+  border-width: 0px;
 `
 
 export const DishImage = styled.img`
-  height:20vh;
-  width:20vh;
+  height: 20vh;
+  width: 20vh;
 `
 
 export const MenuSubDiv1 = styled(FlexColumn)`
-  width:45vw;
+  width: 45vw;
 `
 export const MenuSubDiv2 = styled(FlexRow)`
-  justify-content:space-between;
-  align-items:center;
-  width:45vw;
+  justify-content: space-between;
+  align-items: center;
+  width: 45vw;
 `
 export const OrdersDiv = styled(FlexRow)`
-  align-items:center;
+  align-items: center;
 `
 export const CartDiv = styled(FlexRow)`
-  background-color:orange;
-  height:4vh;
-  min-width:10vw;
-  border-radius:2vh;
-  align-items:center;
-  justify-content:space-around;
-  padding-right:2vw;
-  margin:5px;
+  background-color: orange;
+  height: 4vh;
+  min-width: 10vw;
+  border-radius: 2vh;
+  align-items: center;
+  justify-content: space-around;
+  padding-right: 2vw;
+  margin: 5px;
 `

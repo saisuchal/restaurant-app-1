@@ -125,11 +125,11 @@ class App extends Component {
   calculateCartTotal = () => {
     const {cart} = this.state
     const values = Object.values(cart)
-    let total = 0
-    for (const items of values) {
-      total += parseInt(items)
-    }
-    return total
+    let sum = 0
+    values.forEach(x => {
+      sum += x
+    })
+    return sum
   }
 
   render() {
@@ -148,7 +148,7 @@ class App extends Component {
           calculateCartTotal: this.calculateCartTotal,
         }}
       >
-        {isLoading ? <Loader fill='black' /> : <Home />}
+        {isLoading ? <Loader fill="black" /> : <Home />}
       </RestaurantContext.Provider>
     )
   }
