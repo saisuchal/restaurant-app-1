@@ -6,10 +6,10 @@ const MenuItems = () => (
     {value => {
       const {activeMenu, increaseQuantity, decreaseQuantity, cart} = value
       return (
-        <div className='menu-item-div'>
+        <div className="menu-item-div">
           {activeMenu.map(menuItem => (
             <div
-              className='menu-item'
+              className="menu-item"
               key={menuItem.dishId}
               id={menuItem.dishId}
             >
@@ -22,17 +22,17 @@ const MenuItems = () => (
                 }
                 alt={menuItem.dishType === 1 ? 'Non-Veg' : 'Veg'}
               />
-              <div className='menu-sub-div-1'>
+              <div className="menu-sub-div-1">
                 <h1>{menuItem.dishName}</h1>
                 <p>
                   {menuItem.dishCurrency} {menuItem.dishPrice}
                 </p>
                 <p>{menuItem.dishDescription}</p>
                 {menuItem.dishAvailability ? (
-                  <div className='quantity-button-div'>
+                  <div className="quantity-button-div">
                     <button
-                      type='button'
-                      className='quantity-button'
+                      type="button"
+                      className="quantity-button"
                       value={menuItem.dishId}
                       onClick={decreaseQuantity}
                     >
@@ -44,8 +44,8 @@ const MenuItems = () => (
                         : cart[menuItem.dishId]}
                     </p>
                     <button
-                      type='button'
-                      className='quantity-button'
+                      type="button"
+                      className="quantity-button"
                       value={menuItem.dishId}
                       onClick={increaseQuantity}
                     >
@@ -59,12 +59,12 @@ const MenuItems = () => (
                   <p style={{color: 'blue'}}>Customizations available</p>
                 )}
               </div>
-              <div className='menu-sub-div-2'>
+              <div className="menu-sub-div-2">
                 <p style={{color: 'orange'}}>
                   {menuItem.dishCalories} calories
                 </p>
                 <img
-                  className='dish-image'
+                  className="dish-image"
                   src={menuItem.dishImage}
                   alt={menuItem.dishName}
                 />
