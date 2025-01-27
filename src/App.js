@@ -1,5 +1,4 @@
 import {Component} from 'react'
-import Loader from 'react-loader-spinner'
 import RestaurantContext from './context/RestaurantContext'
 import Home from './components/Home'
 
@@ -8,22 +7,32 @@ import './App.css'
 class App extends Component {
   state = {isLoading: true, cart: {}, activeMenu: []}
 
-  componentDidMount = async () => {
+  componentDidMount() {
+    console.log('mounting')
+    this.fetchData()
+  }
+
+  fetchData = async () => {
+    console.log('fetching data')
     const url =
       'https://apis2.ccbp.in/restaurant-app/restaurant-menu-list-details'
-    const response = await fetch(url)
-    const data = await response.json()
-    const formattedData = await this.formatResponse(data)
-    const {tableMenuList} = formattedData[0]
-    const {menuCategoryId} = tableMenuList[0]
-    this.setState(
-      {
-        activebutton: menuCategoryId,
-        data: formattedData[0],
-        isLoading: false,
-      },
-      this.activeMenu,
-    )
+    const options = {
+      method: 'GET',
+    }
+    const response = await fetch(url, options)
+    if (response.ok) {
+      const data = await response.json()
+      const formattedData = await this.formatResponse(data)
+      const initialTableMenuList = formattedData[0].tableMenuList
+      const initialActiveButton = initialTableMenuList[0].menuCategoryId
+      this.setState(
+        {
+          activebutton: initialActiveButton,
+          data: formattedData[0],
+        },
+        this.activeMenu,
+      )
+    }
   }
 
   formatResponse = dataList =>
@@ -84,18 +93,20 @@ class App extends Component {
     }))
 
   switchMenu = event => {
+    console.log('switch menu')
     const {id} = event.target
     this.setState({activebutton: id}, this.activeMenu)
   }
 
   activeMenu = () => {
+    console.log('active menu')
     const {activebutton, data} = this.state
     const {tableMenuList} = data
     const activeMenuList = tableMenuList.filter(
       menu => menu.menuCategoryId === activebutton,
     )
     const {categoryDishes} = activeMenuList[0]
-    this.setState({activeMenu: categoryDishes})
+    this.setState({activeMenu: categoryDishes, isLoading: false})
   }
 
   increaseQuantity = event => {
@@ -133,8 +144,8 @@ class App extends Component {
   }
 
   render() {
+    console.log('rendering')
     const {activebutton, isLoading, data, cart, activeMenu} = this.state
-    console.log(data)
     return (
       <RestaurantContext.Provider
         value={{
@@ -148,7 +159,7 @@ class App extends Component {
           calculateCartTotal: this.calculateCartTotal,
         }}
       >
-        {isLoading ? <Loader fill="black" /> : <Home />}
+        {!isLoading && <Home />}
       </RestaurantContext.Provider>
     )
   }

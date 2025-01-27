@@ -1,22 +1,18 @@
 import RestaurantContext from '../../context/RestaurantContext'
-import {
-  MenuItemDiv,
-  MenuItem,
-  QuantityButtonDiv,
-  QuantityButton,
-  DishImage,
-  MenuSubDiv1,
-  MenuSubDiv2,
-} from '../StyledComponents'
+import './index.css'
 
 const MenuItems = () => (
   <RestaurantContext.Consumer>
     {value => {
       const {activeMenu, increaseQuantity, decreaseQuantity, cart} = value
       return (
-        <MenuItemDiv>
+        <div className='menu-item-div'>
           {activeMenu.map(menuItem => (
-            <MenuItem key={menuItem.dishId} id={menuItem.dishId}>
+            <div
+              className='menu-item'
+              key={menuItem.dishId}
+              id={menuItem.dishId}
+            >
               <img
                 style={{height: '30px', margin: 'auto'}}
                 src={
@@ -26,48 +22,56 @@ const MenuItems = () => (
                 }
                 alt={menuItem.dishType === 1 ? 'Non-Veg' : 'Veg'}
               />
-              <MenuSubDiv1>
+              <div className='menu-sub-div-1'>
                 <h1>{menuItem.dishName}</h1>
                 <p>
                   {menuItem.dishCurrency} {menuItem.dishPrice}
                 </p>
                 <p>{menuItem.dishDescription}</p>
                 {menuItem.dishAvailability ? (
-                  <QuantityButtonDiv>
-                    <QuantityButton
+                  <div className='quantity-button-div'>
+                    <button
+                      type='button'
+                      className='quantity-button'
                       value={menuItem.dishId}
                       onClick={decreaseQuantity}
                     >
                       -
-                    </QuantityButton>
+                    </button>
                     <p>
                       {cart[menuItem.dishId] === undefined
                         ? 0
                         : cart[menuItem.dishId]}
                     </p>
-                    <QuantityButton
+                    <button
+                      type='button'
+                      className='quantity-button'
                       value={menuItem.dishId}
                       onClick={increaseQuantity}
                     >
                       +
-                    </QuantityButton>
-                  </QuantityButtonDiv>
+                    </button>
+                  </div>
                 ) : (
                   <p style={{color: 'red'}}>Not Available</p>
                 )}
                 {menuItem.addonCat.length > 0 && (
-                  <p style={{color: 'blue'}}>Customisations Available</p>
+                  <p style={{color: 'blue'}}>Customizations available</p>
                 )}
-              </MenuSubDiv1>
-              <MenuSubDiv2>
+              </div>
+              <div className='menu-sub-div-2'>
                 <p style={{color: 'orange'}}>
-                  Calories: {menuItem.dishCalories}
+                  {menuItem.dishCalories} calories
                 </p>
-                <DishImage src={menuItem.dishImage} alt={menuItem.dishName} />
-              </MenuSubDiv2>
-            </MenuItem>
+                <img
+                  className='dish-image'
+                  src={menuItem.dishImage}
+                  alt={menuItem.dishName}
+                />
+              </div>
+            </div>
           ))}
-        </MenuItemDiv>
+        </div>
       )
     }}
   </RestaurantContext.Consumer>

@@ -9,3 +9,30 @@
     display: none;
   }
 }
+
+.header-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px;
+  border-bottom: 2px solid lightgrey;
+}
+
+.orders-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.cart-div {
+  display: flex;
+  flex-direction: row;
+  background-color: orange;
+  height: 4vh;
+  min-width: 10vw;
+  border-radius: 2vh;
+  align-items: center;
+  justify-content: space-around;
+  padding-right: 2vw;
+  margin: 5px;
+}

@@ -1,6 +1,5 @@
 import {AiOutlineShoppingCart} from 'react-icons/ai'
 import RestaurantContext from '../../context/RestaurantContext'
-import {HeaderDiv, OrdersDiv, CartDiv} from '../StyledComponents'
 import './index.css'
 
 const Header = () => (
@@ -10,16 +9,16 @@ const Header = () => (
       const {restaurantName} = data
       const cartLength = calculateCartTotal()
       return (
-        <HeaderDiv>
+        <div className="header-div">
           <h1>{restaurantName}</h1>
-          <OrdersDiv>
+          <div className="orders-div">
             <p className="myorders">My Orders</p>
-            <CartDiv>
+            <div className="cart-div">
               <AiOutlineShoppingCart className="icon" />
               <p>{cartLength}</p>
-            </CartDiv>
-          </OrdersDiv>
-        </HeaderDiv>
+            </div>
+          </div>
+        </div>
       )
     }}
   </RestaurantContext.Consumer>

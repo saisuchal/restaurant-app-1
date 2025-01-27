@@ -1,24 +1,37 @@
 import RestaurantContext from '../../context/RestaurantContext'
-import {MenuButton, MenuButtonDiv} from '../StyledComponents'
+import './index.css'
 
 const MenuCategories = () => (
   <RestaurantContext.Consumer>
     {value => {
-      const {data, activebutton, switchMenu} = value
+      const {data, switchMenu, activebutton} = value
       const {tableMenuList} = data
       return (
-        <MenuButtonDiv>
+        <div className="menu-button-div">
           {tableMenuList.map(menu => (
-            <MenuButton
+            <button
+              type="button"
+              className="menu-button"
+              style={
+                ({
+                  borderColor:
+                    activebutton === menu.menuCategoryId
+                      ? 'orange'
+                      : 'transparent',
+                },
+                {
+                  color:
+                    activebutton === menu.menuCategoryId ? 'orange' : 'black',
+                })
+              }
               id={menu.menuCategoryId}
-              activeButton={activebutton}
               key={menu.menuCategoryId}
               onClick={switchMenu}
             >
               {menu.menuCategory}
-            </MenuButton>
+            </button>
           ))}
-        </MenuButtonDiv>
+        </div>
       )
     }}
   </RestaurantContext.Consumer>

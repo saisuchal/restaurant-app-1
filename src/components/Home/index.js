@@ -1,14 +1,13 @@
 import Header from '../Header'
 import MenuCategories from '../MenuCategories'
 import MenuItems from '../MenuItems'
-import {HomeDiv} from '../StyledComponents'
 
 const Home = () => (
-  <HomeDiv>
+  <div>
     <Header />
     <MenuCategories />
     <MenuItems />
-  </HomeDiv>
+  </div>
 )
 
 export default Home
