@@ -1,0 +1,19 @@
+.empty-cart {
+  margin: auto;
+}
+
+.remove-all-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+}
+
+.remove-all-button {
+  padding: 10px;
+  background-color: rgb(227, 206, 44);
+  color: black;
+  border: 2px;
+  border-radius: 5px;
+  font-weight: bold;
+}

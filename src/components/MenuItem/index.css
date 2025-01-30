@@ -1,0 +1,77 @@
+.menu-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 2px;
+  border: 1px solid grey;
+  margin: 4px;
+}
+
+.menu-sub-div-1 {
+  display: flex;
+  flex-direction: column;
+  width: 35vw;
+}
+
+.menu-sub-div-2 {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  margin-bottom: auto;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 10vw;
+}
+
+.item-quantity-div {
+  display: flex;
+  background-color: green;
+  color: white;
+  height: 5vh;
+  width: 5vh;
+  margin-top: auto;
+  margin-bottom: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-sub-div-3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 45vw;
+}
+
+.quantity-button-div {
+  display: flex;
+  flex-direction: row;
+  height: 4vh;
+  width: 10vw;
+  border-radius: 2vh;
+  background-color: green;
+  color: white;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+}
+
+.quantity-button {
+  background: transparent;
+  color: white;
+  border-width: 0px;
+}
+.dish-image {
+  height: 20vh;
+  width: 20vh;
+}
+
+.add-to-cart-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}

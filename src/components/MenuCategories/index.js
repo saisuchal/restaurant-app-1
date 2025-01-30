@@ -1,40 +1,51 @@
-import RestaurantContext from '../../context/RestaurantContext'
+import CartContext from '../../context/CartContext'
+import MenuItem from '../MenuItem'
 import './index.css'
 
 const MenuCategories = () => (
-  <RestaurantContext.Consumer>
+  <CartContext.Consumer>
     {value => {
-      const {data, switchMenu, activebutton} = value
-      const {tableMenuList} = data
+      const {isLoading, data, activebutton, activeMenu, switchMenu} = value
       return (
-        <div className="menu-button-div">
-          {tableMenuList.map(menu => (
-            <button
-              type="button"
-              className="menu-button"
-              style={
-                ({
-                  borderColor:
-                    activebutton === menu.menuCategoryId
-                      ? 'orange'
-                      : 'transparent',
-                },
-                {
-                  color:
-                    activebutton === menu.menuCategoryId ? 'orange' : 'black',
-                })
-              }
-              id={menu.menuCategoryId}
-              key={menu.menuCategoryId}
-              onClick={switchMenu}
-            >
-              {menu.menuCategory}
-            </button>
-          ))}
-        </div>
+        !isLoading && (
+          <div>
+            <div className="menu-button-div">
+              {data.tableMenuList.map(menu => (
+                <button
+                  type="button"
+                  className="menu-button"
+                  style={
+                    ({
+                      borderColor:
+                        activebutton === menu.menuCategoryId
+                          ? 'orange'
+                          : 'transparent',
+                    },
+                    {
+                      color:
+                        activebutton === menu.menuCategoryId
+                          ? 'orange'
+                          : 'black',
+                    })
+                  }
+                  id={menu.menuCategoryId}
+                  key={menu.menuCategoryId}
+                  onClick={switchMenu}
+                >
+                  {menu.menuCategory}
+                </button>
+              ))}
+            </div>
+            <div className="menu-item-div">
+              {activeMenu.map(menuItem => (
+                <MenuItem menuItem={menuItem} key={menuItem.dishId} />
+              ))}
+            </div>
+          </div>
+        )
       )
     }}
-  </RestaurantContext.Consumer>
+  </CartContext.Consumer>
 )
 
 export default MenuCategories

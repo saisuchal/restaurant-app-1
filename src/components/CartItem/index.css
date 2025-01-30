@@ -1,10 +1,4 @@
-.menu-item-div {
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-}
-
-.menu-item {
+.cart-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -37,35 +31,16 @@
   width: 20vh;
 }
 
-.menu-sub-div-1 {
+.cart-sub-div-1 {
   display: flex;
   flex-direction: column;
   width: 45vw;
 }
 
-.menu-sub-div-2 {
+.cart-sub-div-2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 45vw;
-}
-
-.orders-div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.cart-div {
-  display: flex;
-  flex-direction: row;
-  background-color: orange;
-  height: 4vh;
-  min-width: 10vw;
-  border-radius: 2vh;
-  align-items: center;
-  justify-content: space-around;
-  padding-right: 2vw;
-  margin: 5px;
 }
