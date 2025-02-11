@@ -17,7 +17,7 @@ const Header = props => {
         return (
           !isLoading && (
             <div className="header-div">
-              <Link to="/">
+              <Link to="/" className="link-style">
                 <div className="heading-div">
                   <h1 className="heading">{data.restaurantName}</h1>
                 </div>
@@ -25,13 +25,17 @@ const Header = props => {
               <div className="orders-div">
                 <p className="my-orders">My Orders</p>
                 <Link to="/cart">
-                  <div className="cart-div" data-testid="cart">
+                  <button
+                    className="cart-button"
+                    data-testid="cart"
+                    type="button"
+                  >
                     {cartLength > 0 && (
                       <div className="cart-quantity-div">
                         <p className="cart-quantity">{cartLength}</p>
                       </div>
                     )}
-                  </div>
+                  </button>
                 </Link>
               </div>
               <button type="button" onClick={logout} className="logout-button">

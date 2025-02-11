@@ -12,11 +12,13 @@ const Cart = () => (
           <div>
             <Header />
             {cartList.length === 0 ? (
-              <img
-                className="empty-cart"
-                src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-empty-cart-img.png"
-                alt="empty cart"
-              />
+              <div className="empty-cart-div">
+                <img
+                  className="empty-cart"
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-empty-cart-img.png"
+                  alt="empty cart"
+                />
+              </div>
             ) : (
               <>
                 <div className="remove-all-div">

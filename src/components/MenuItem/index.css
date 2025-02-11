@@ -7,24 +7,19 @@
   border: 1px solid grey;
   margin: 4px;
 }
-
+.food-mark {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 30px;
+}
 .menu-sub-div-1 {
   display: flex;
   flex-direction: column;
   width: 35vw;
 }
 
-.menu-sub-div-2 {
-  display: flex;
-  flex-direction: column;
-  margin-top: auto;
-  margin-bottom: auto;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-  margin-left: 10px;
-  width: 10vw;
-}
 
 .item-quantity-div {
   display: flex;
@@ -38,7 +33,7 @@
   align-items: center;
 }
 
-.menu-sub-div-3 {
+.menu-sub-div-2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -27,12 +27,14 @@
   width: 10vw;
 }
 
-.cart-div {
+.cart-button {
   height: 4vh;
   width: 4vh;
-  margin: 5px;
   background-image: url('https://res.cloudinary.com/dahbfvpdn/image/upload/v1738167403/shopping-cart_vv4g50.png');
   background-size: cover;
+  border: 0px solid transparent;
+  background-color: transparent;
+  padding: 0px;
 }
 
 .cart-quantity-div {
@@ -40,7 +42,6 @@
   align-items: center;
   justify-content: center;
   background-color: orange;
-  position: absolute;
   border-radius: 50%;
   height: 15px;
   width: 15px;
@@ -67,6 +68,10 @@
   margin-right: 20px;
 }
 
-.heading{
-  color:black;
+.heading {
+  color: black;
+}
+
+.link-style {
+  text-decoration: none;
 }

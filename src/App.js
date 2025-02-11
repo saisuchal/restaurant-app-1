@@ -19,12 +19,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('mounting')
     this.fetchData()
   }
 
   fetchData = async () => {
-    console.log('fetching')
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken !== undefined) {
       const dataUrl =
@@ -33,9 +31,9 @@ class App extends Component {
         method: 'GET',
       }
       const dataResponse = await fetch(dataUrl, dataFetchOptions)
-      console.log(dataResponse)
       if (dataResponse.ok) {
         const fetchedData = await dataResponse.json()
+        console.log(fetchedData)
         const formattedData = await this.formatResponse(fetchedData)
         const initialTableMenuList = formattedData[0].tableMenuList
         const initialActiveButton = initialTableMenuList[0].menuCategoryId
@@ -51,13 +49,11 @@ class App extends Component {
   }
 
   switchMenu = event => {
-    console.log('switch menu')
     const {id} = event.target
     this.setState({activebutton: id}, this.activeMenu)
   }
 
   activeMenu = () => {
-    console.log('active menu')
     const {activebutton, data} = this.state
     const {tableMenuList} = data
     const activeMenuList = tableMenuList.filter(
@@ -100,7 +96,7 @@ class App extends Component {
       dishName: dish.dish_name,
       dishPrice: dish.dish_price,
       nexturl: dish.nexturl,
-      menuItemQuantity: 0, // added cartItemQuantity value pair for cart item quantity manipulation on menu and cart pages
+      menuItemQuantity: 0, // added menuItemQuantity for cart item quantity manipulation on menu and cart pages
     }))
 
   formatAddOnCat = list =>
@@ -129,7 +125,6 @@ class App extends Component {
     const {cartList} = this.state
     const itemIndex = cartList.findIndex(cartItem => {
       const cartItemKey = Object.keys(cartItem)[0]
-      console.log(cartItem)
       return cartItemKey === id
     })
     return itemIndex
@@ -137,35 +132,35 @@ class App extends Component {
 
   addCartItem = menuItem => {
     const {cartList} = this.state
-    const {dishId} = menuItem
+    const {dishId, menuItemQuantity} = menuItem
     const itemIndex = this.fetchCartItemIndex(dishId)
-    console.log(itemIndex)
+
     if (itemIndex === -1) {
       cartList.push({[dishId]: menuItem})
       this.setState(cartList)
     } else {
       const cartItem = cartList[itemIndex]
-      const newQuantity = menuItem.menuItemQuantity
-      cartItem[dishId].menuItemQuantity = newQuantity
+      const oldQuantity = cartItem[dishId].menuItemQuantity
+      const newQuantity = oldQuantity + menuItemQuantity
+      cartList[itemIndex][dishId].menuItemQuantity = newQuantity
       this.setState({cartList})
     }
   }
 
   incrementCartItemQuantity = event => {
-    console.log('cart increment')
+    console.log('inc')
     const {cartList} = this.state
     const {value} = event.target
     const dish = JSON.parse(value)
     const {dishId} = dish
     const itemIndex = this.fetchCartItemIndex(dishId)
-    console.log(itemIndex)
     const cartItem = cartList[itemIndex]
     cartItem[dishId].menuItemQuantity += 1
     this.setState(cartList)
   }
 
   decrementCartItemQuantity = event => {
-    console.log('cart decrement')
+    console.log('dec')
     const {cartList} = this.state
     const {value} = event.target
     const dish = JSON.parse(value)
@@ -195,7 +190,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('rendering')
     const {isLoading, cartList, data, activebutton, activeMenu} = this.state
     console.log(cartList)
     return (

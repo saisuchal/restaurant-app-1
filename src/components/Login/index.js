@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import {Component} from 'react'
+import './index.css'
 
 class Login extends Component {
   state = {username: '', password: '', error: false, errorMsg: ''}
@@ -38,9 +39,9 @@ class Login extends Component {
   render() {
     const {error, errorMsg} = this.state
     return (
-      <div>
+      <div className="login-div">
         <h1>UNI Resto Cafe</h1>
-        <form onSubmit={this.submitCredentials}>
+        <form onSubmit={this.submitCredentials} className="login-form">
           <label htmlFor="username">USERNAME</label>
           <input type="textbox" id="username" onChange={this.usernameInput} />
           <label htmlFor="password">PASSWORD</label>
