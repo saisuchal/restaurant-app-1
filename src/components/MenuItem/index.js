@@ -3,67 +3,101 @@ import CartContext from '../../context/CartContext'
 import './index.css'
 
 class MenuItem extends Component {
-  state = {quantity: 0}
+  state = {menuItemQuantity: 0, quantityChanged: false}
+
+  componentDidMount() {
+    const {cartQuantity} = this.props
+    this.setState({menuItemQuantity: cartQuantity})
+  }
 
   decreaseMenuItemQuantity = () => {
-    const {quantity} = this.state
-    if (quantity !== 0) {
-      this.setState(prevState => ({quantity: prevState.quantity - 1}))
+    const {menuItemQuantity} = this.state
+    if (menuItemQuantity !== 0) {
+      this.setState(prevState => ({
+        menuItemQuantity: parseInt(prevState.menuItemQuantity) - 1,
+        quantityChanged: true,
+      }))
     }
   }
 
   increaseMenuItemQuantity = () => {
-    this.setState(prevState => ({quantity: prevState.quantity + 1}))
+    this.setState(prevState => ({
+      menuItemQuantity: parseInt(prevState.menuItemQuantity) + 1,
+      quantityChanged: true,
+    }))
+  }
+
+  fetchCartQuantityItemIndex = (cartQuantityList, dishId) => {
+    const itemIndex = cartQuantityList.findIndex(cartItem => {
+      const cartItemKey = Object.keys(cartItem)[0]
+      return cartItemKey === dishId
+    })
+    return itemIndex
   }
 
   render() {
+    const {menuItem, cartQuantity} = this.props
+    const {dishId} = menuItem
+    const {quantityChanged, menuItemQuantity} = this.state
     return (
       <CartContext.Consumer>
         {value => {
           const {addCartItem} = value
-          const {menuItem} = this.props
-          const {quantity} = this.state
           const addToCart = () => {
-            menuItem.menuItemQuantity = quantity
-            addCartItem(menuItem, quantity)
+            this.setState(
+              {quantityChanged: true},
+              addCartItem(menuItem, menuItemQuantity),
+            )
           }
-
           return (
             <div
               className="menu-item"
               key={menuItem.dishId}
               id={menuItem.dishId}
             >
-              <img
-                className="food-mark"
-                src={
-                  menuItem.dishType === 1
-                    ? 'https://res.cloudinary.com/dahbfvpdn/image/upload/v1737400259/samples/food/250-garam-masala-sachet-lippia-powder-original-imafschyhh6ucuwq_t1ypr5.webp'
-                    : 'https://res.cloudinary.com/dahbfvpdn/image/upload/v1737400305/samples/food/veg-300x259_imnvkj.jpg'
-                }
-                alt={menuItem.dishType === 1 ? 'Non-Veg' : 'Veg'}
-              />
               <div className="menu-sub-div-1">
-                <h1>{menuItem.dishName}</h1>
-                <p>
-                  {menuItem.dishCurrency} {menuItem.dishPrice}
-                </p>
-                <p>{menuItem.dishDescription}</p>
+                <h1 className="food-name">
+                  <img
+                    className="food-mark"
+                    src={
+                      menuItem.dishType === 1
+                        ? 'https://res.cloudinary.com/dahbfvpdn/image/upload/v1737400259/samples/food/250-garam-masala-sachet-lippia-powder-original-imafschyhh6ucuwq_t1ypr5.webp'
+                        : 'https://res.cloudinary.com/dahbfvpdn/image/upload/v1737400305/samples/food/veg-300x259_imnvkj.jpg'
+                    }
+                    alt={menuItem.dishType === 1 ? 'Non-Veg' : 'Veg'}
+                  />
+                  {menuItem.dishName}
+                </h1>
+                <div className="dish-info">
+                  <p>
+                    {menuItem.dishCurrency} {menuItem.dishPrice}
+                  </p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                  <p className="calories">{menuItem.dishCalories} calories</p>
+                </div>
+                <p className="food-description">{menuItem.dishDescription}</p>
                 <div className="add-to-cart-div">
-                  <div className="quantity-button-div">
+                  <div className="menu-quantity-button-div">
                     {menuItem.dishAvailability && (
                       <button
-                        className="quanity-button"
+                        className="menu-quantity-button"
+                        style={{fontSize: '16px'}}
                         type="button"
                         onClick={this.decreaseMenuItemQuantity}
                       >
                         -
                       </button>
                     )}
-                    <p>{quantity}</p>
+                    <p
+                      style={{fontWeight: 'bold'}}
+                      id={`${dishId}-cartQuantity`}
+                    >
+                      {quantityChanged ? menuItemQuantity : cartQuantity}
+                    </p>
                     {menuItem.dishAvailability && (
                       <button
-                        className="quanity-button"
+                        className="menu-quantity-button"
+                        style={{fontSize: '16px'}}
                         type="button"
                         onClick={this.increaseMenuItemQuantity}
                       >
@@ -71,17 +105,15 @@ class MenuItem extends Component {
                       </button>
                     )}
                   </div>
-                  {quantity > 0 && menuItem.dishAvailability && (
-                    <div className="quantity-button-div">
-                      <button
-                        type="button"
-                        className="quantity-button"
-                        id={menuItem.dishId}
-                        onClick={addToCart}
-                      >
-                        ADD TO CART
-                      </button>
-                    </div>
+                  {menuItemQuantity > 0 && menuItem.dishAvailability && (
+                    <button
+                      type="button"
+                      className="add-to-cart-button"
+                      id={menuItem.dishId}
+                      onClick={addToCart}
+                    >
+                      ADD TO CART
+                    </button>
                   )}
                 </div>
                 {!menuItem.dishAvailability && (
@@ -93,9 +125,6 @@ class MenuItem extends Component {
               </div>
 
               <div className="menu-sub-div-2">
-                <p style={{color: 'orange'}}>
-                  {menuItem.dishCalories} calories
-                </p>
                 <img
                   className="dish-image"
                   src={menuItem.dishImage}

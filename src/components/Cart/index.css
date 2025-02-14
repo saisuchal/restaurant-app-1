@@ -1,5 +1,6 @@
-.empty-cart {
+.empty-cart-image {
   margin: auto;
+  height: 30vw;
 }
 
 .remove-all-div {
@@ -11,17 +12,50 @@
 
 .remove-all-button {
   padding: 10px;
-  background-color: rgb(227, 206, 44);
-  color: black;
+  background-color: rgb(227, 68, 44);
+  color: rgb(244, 242, 242);
   border: 2px;
   border-radius: 5px;
   font-weight: bold;
 }
 
-.empty-cart-div{
+.empty-cart-div {
   display: flex;
   justify-content: center;
   align-items: center;
-  width:100vw;
-  height:75vh;
+  width: 100vw;
+  height: 75vh;
+}
+
+.cart-items-div {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+@media screen and (max-width: 767px) {
+  .cart-quantity-button-div {
+    min-width: 100px;
+  }
+  .food-name {
+    font-size: 22px;
+  }
+  .cart-dish-image {
+    height: 100px;
+    width: 100px;
+    border-radius: 10px;
+  }
+  .cart-quantity-button {
+    height: 20px;
+    width: 20px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  .remove-button {
+    height: 20px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
 }

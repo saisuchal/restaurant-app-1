@@ -2,6 +2,7 @@ import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Header from '../Header'
 import MenuCategories from '../MenuCategories'
+import CartContext from '../../context/CartContext'
 
 const Home = () => {
   const jwtToken = Cookies.get('jwt_token')
@@ -9,10 +10,20 @@ const Home = () => {
     return <Redirect to="/login" />
   }
   return (
-    <div>
-      <Header />
-      <MenuCategories />
-    </div>
+    <CartContext.Consumer>
+      {value => {
+        const {apiStatus} = value
+        console.log(apiStatus)
+        return (
+          apiStatus === 'SUCCESS' && (
+            <div>
+              <Header />
+              <MenuCategories />
+            </div>
+          )
+        )
+      }}
+    </CartContext.Consumer>
   )
 }
 

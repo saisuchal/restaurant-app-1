@@ -9,10 +9,11 @@ const CartContext = React.createContext({
   removeCartItem: () => {},
   addCartItem: () => {},
   data: {},
-  activebutton: '',
+  activeButton: '',
   activeMenu: [],
-  isLoading: '',
+  apiStatus: '',
   fetchCartItemIndex: () => {},
+  cartQuantityList: {},
 })
 
 export default CartContext

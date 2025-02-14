@@ -8,27 +8,24 @@ const CartItem = props => (
         removeCartItem,
         incrementCartItemQuantity,
         decrementCartItemQuantity,
-        fetchCartItemIndex,
-        cartList,
+        cartQuantityList,
       } = value
       const {eachCartItem} = props
       const {dishId} = eachCartItem
-      const cartItemIndex = fetchCartItemIndex(dishId)
-      const cartItem = cartList[cartItemIndex]
-      const cartQuantity = cartItem[dishId].menuItemQuantity
-      console.log(cartItemIndex)
+      const cartQuantity = cartQuantityList[dishId]
+      const dishTotalPrice = eachCartItem.dishPrice * cartQuantity
       return (
-        <div className="cart-item" key={cartItem.dishId} id={cartItem.dishId}>
+        <div className="cart-item">
           <div className="cart-sub-div-1">
-            <h1>{eachCartItem.dishName}</h1>
+            <h1 className="food-name">{eachCartItem.dishName}</h1>
             <p>
-              {eachCartItem.dishCurrency} {eachCartItem.dishPrice}
+              {eachCartItem.dishCurrency} {dishTotalPrice}
             </p>
           </div>
           <div className="cart-sub-div-2">
-            <div className="quantity-button-div">
+            <div className="cart-quantity-button-div">
               <button
-                className="quanity-button"
+                className="cart-quantity-button"
                 type="button"
                 value={JSON.stringify(eachCartItem)}
                 onClick={decrementCartItemQuantity}
@@ -37,7 +34,7 @@ const CartItem = props => (
               </button>
               <p>{cartQuantity}</p>
               <button
-                className="quanity-button"
+                className="cart-quantity-button"
                 type="button"
                 value={JSON.stringify(eachCartItem)}
                 onClick={incrementCartItemQuantity}
@@ -46,14 +43,15 @@ const CartItem = props => (
               </button>
             </div>
             <button
+              className="remove-button"
               type="button"
-              value={eachCartItem.dishId}
+              value={dishId}
               onClick={removeCartItem}
             >
               Remove
             </button>
             <img
-              className="dish-image"
+              className="cart-dish-image"
               src={eachCartItem.dishImage}
               alt={eachCartItem.dishName}
             />

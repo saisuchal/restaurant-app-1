@@ -5,10 +5,18 @@ import './index.css'
 const MenuCategories = () => (
   <CartContext.Consumer>
     {value => {
-      const {isLoading, data, activebutton, activeMenu, switchMenu} = value
+      const {
+        data,
+        activeButton,
+        activeMenu,
+        switchMenu,
+        cartQuantityList,
+        apiStatus,
+      } = value
+      console.log(activeMenu)
       return (
-        !isLoading && (
-          <div>
+        apiStatus === 'SUCCESS' && (
+          <>
             <div className="menu-button-div">
               {data.tableMenuList.map(menu => (
                 <button
@@ -17,13 +25,13 @@ const MenuCategories = () => (
                   style={
                     ({
                       borderColor:
-                        activebutton === menu.menuCategoryId
+                        activeButton === menu.menuCategoryId
                           ? 'orange'
                           : 'transparent',
                     },
                     {
                       color:
-                        activebutton === menu.menuCategoryId
+                        activeButton === menu.menuCategoryId
                           ? 'orange'
                           : 'black',
                     })
@@ -36,12 +44,23 @@ const MenuCategories = () => (
                 </button>
               ))}
             </div>
-            <div className="menu-item-div">
-              {activeMenu.map(menuItem => (
-                <MenuItem menuItem={menuItem} key={menuItem.dishId} />
-              ))}
+            <div className="menu-items-div">
+              {activeMenu.map(menuItem => {
+                const {dishId} = menuItem
+                const cartQuantity =
+                  cartQuantityList[dishId] === undefined
+                    ? 0
+                    : cartQuantityList[dishId]
+                return (
+                  <MenuItem
+                    menuItem={menuItem}
+                    key={menuItem.dishId}
+                    cartQuantity={cartQuantity}
+                  />
+                )
+              })}
             </div>
-          </div>
+          </>
         )
       )
     }}

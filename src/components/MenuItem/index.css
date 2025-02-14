@@ -1,26 +1,33 @@
 .menu-item {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   padding: 10px;
-  border-radius: 2px;
-  border: 1px solid grey;
-  margin: 4px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid rgb(171, 171, 171);
+  border-radius: 10px;
+}
+.food-name {
+  font-size: 26px;
 }
 .food-mark {
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: 20px;
   margin-right: 20px;
-  height: 30px;
+  height: 20px;
 }
 .menu-sub-div-1 {
   display: flex;
   flex-direction: column;
-  width: 35vw;
+  width: 45vw;
 }
-
-
+.calories {
+  background-color: rgb(60, 150, 253);
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0px;
+}
 .item-quantity-div {
   display: flex;
   background-color: green;
@@ -36,37 +43,101 @@
 .menu-sub-div-2 {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  width: 45vw;
+  width: 35vw;
 }
 
-.quantity-button-div {
+.menu-quantity-button-div {
   display: flex;
   flex-direction: row;
   height: 4vh;
-  width: 10vw;
+  min-width: 140px;
   border-radius: 2vh;
-  background-color: green;
-  color: white;
+  background-color: transparent;
   justify-content: space-around;
   align-items: center;
   padding: 10px;
-  margin: 10px;
+  margin-right: 10px;
 }
-
-.quantity-button {
-  background: transparent;
+.menu-quantity-button {
+  background-color: green;
+  cursor: pointer;
+  border: 0px;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  justify-items: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  font-size: 14px;
+}
+.add-to-cart-button {
+  background-color: green;
   color: white;
   border-width: 0px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  height: 30px;
+  font-size: 14px;
 }
+
 .dish-image {
-  height: 20vh;
-  width: 20vh;
+  height: 200px;
+  width: 200px;
+  border-radius: 15px;
 }
 
 .add-to-cart-div {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
+}
+
+.dish-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.food-description {
+  font-size: 18px;
+}
+
+@media screen and (max-width: 767px) {
+  .menu-quantity-button-div {
+    min-width: 100px;
+  }
+  .food-name {
+    font-size: 22px;
+  }
+  .food-mark {
+    margin-right: 10px;
+    height: 15px;
+  }
+  .menu-sub-div-2 {
+    flex-direction: column;
+  }
+  .dish-image {
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+  }
+  .food-description {
+    font-size: 14px;
+  }
+  .menu-quantity-button {
+    height: 20px;
+    width: 20px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  .add-to-cart-button {
+    height: 20px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
 }

@@ -1,40 +1,19 @@
 .cart-item {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 10px;
-  border-radius: 2px;
-  border: 1px solid grey;
-  margin: 4px;
-}
-
-.quantity-button-div {
-  display: flex;
-  flex-direction: row;
-  height: 4vh;
-  width: 10vw;
-  border-radius: 2vh;
-  background-color: green;
-  color: white;
   justify-content: space-around;
   align-items: center;
   padding: 10px;
-}
-
-.quantity-button {
-  background: transparent;
-  color: white;
-  border-width: 0px;
-}
-.dish-image {
-  height: 20vh;
-  width: 20vh;
+  border: 2px solid rgb(171, 171, 171);
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .cart-sub-div-1 {
   display: flex;
   flex-direction: column;
-  width: 45vw;
+  width: 35vw;
 }
 
 .cart-sub-div-2 {
@@ -42,5 +21,76 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 45vw;
+  width: 65vw;
+}
+.food-name {
+  font-size: 26px;
+}
+.remove-button {
+  background-color: rgb(227, 68, 44);
+  color: rgb(244, 242, 242);
+  border: 2px;
+  border-radius: 10px;
+  font-weight: bold;
+  border-width: 0px;
+  cursor: pointer;
+  height: 30px;
+  font-size: 14px;
+}
+
+.cart-quantity-button-div {
+  display: flex;
+  flex-direction: row;
+  height: 4vh;
+  min-width: 140px;
+  border-radius: 2vh;
+  background-color: transparent;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+}
+
+.cart-quantity-button {
+  background-color: green;
+  cursor: pointer;
+  border: 0px;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  justify-items: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  font-size: 14px;
+}
+.cart-dish-image {
+  height: 150px;
+  width: 150px;
+  border-radius: 15px;
+}
+
+@media screen and (max-width: 767px) {
+  .cart-quantity-button-div {
+    min-width: 100px;
+  }
+  .food-name {
+    font-size: 22px;
+  }
+  .cart-dish-image {
+    height: 100px;
+    width: 100px;
+    border-radius: 10px;
+  }
+  .cart-quantity-button {
+    height: 20px;
+    width: 20px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  .remove-button {
+    height: 20px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
 }

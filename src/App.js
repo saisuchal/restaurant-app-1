@@ -9,13 +9,21 @@ import ProtectedRoute from './components/ProtectedRoute'
 
 import './App.css'
 
+const apiStatusConstants = {
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  failure: 'FAILURE',
+  inProgress: 'IN_PROGRESS',
+}
+
 class App extends Component {
   state = {
-    isLoading: true,
+    apiStatus: apiStatusConstants.initial,
     cartList: [],
-    activebutton: '',
+    activeButton: '',
     data: {},
     activeMenu: [],
+    cartQuantityList: {},
   }
 
   componentDidMount() {
@@ -23,6 +31,9 @@ class App extends Component {
   }
 
   fetchData = async () => {
+    this.setState({
+      apiStatus: apiStatusConstants.inProgress,
+    })
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken !== undefined) {
       const dataUrl =
@@ -33,34 +44,42 @@ class App extends Component {
       const dataResponse = await fetch(dataUrl, dataFetchOptions)
       if (dataResponse.ok) {
         const fetchedData = await dataResponse.json()
-        console.log(fetchedData)
         const formattedData = await this.formatResponse(fetchedData)
         const initialTableMenuList = formattedData[0].tableMenuList
         const initialActiveButton = initialTableMenuList[0].menuCategoryId
-        this.setState(
-          {
-            activebutton: initialActiveButton,
-            data: formattedData[0],
-          },
-          this.activeMenu,
+        const {tableMenuList} = formattedData[0]
+        const activeMenuList = tableMenuList.filter(
+          menu => menu.menuCategoryId === initialActiveButton,
         )
+        const {categoryDishes} = activeMenuList[0]
+        this.setState({
+          activeButton: initialActiveButton,
+          data: formattedData[0],
+          apiStatus: apiStatusConstants.success,
+          activeMenu: categoryDishes,
+        })
+      }
+      if (dataResponse.status === 401) {
+        this.setState({
+          apiStatus: apiStatusConstants.failure,
+        })
       }
     }
   }
 
   switchMenu = event => {
     const {id} = event.target
-    this.setState({activebutton: id}, this.activeMenu)
+    this.setState({activeButton: id}, this.activeMenu)
   }
 
   activeMenu = () => {
-    const {activebutton, data} = this.state
+    const {activeButton, data} = this.state
     const {tableMenuList} = data
     const activeMenuList = tableMenuList.filter(
-      menu => menu.menuCategoryId === activebutton,
+      menu => menu.menuCategoryId === activeButton,
     )
     const {categoryDishes} = activeMenuList[0]
-    this.setState({activeMenu: categoryDishes, isLoading: false})
+    this.setState({activeMenu: categoryDishes})
   }
 
   formatResponse = dataList =>
@@ -96,7 +115,6 @@ class App extends Component {
       dishName: dish.dish_name,
       dishPrice: dish.dish_price,
       nexturl: dish.nexturl,
-      menuItemQuantity: 0, // added menuItemQuantity for cart item quantity manipulation on menu and cart pages
     }))
 
   formatAddOnCat = list =>
@@ -130,83 +148,92 @@ class App extends Component {
     return itemIndex
   }
 
-  addCartItem = menuItem => {
-    const {cartList} = this.state
-    const {dishId, menuItemQuantity} = menuItem
+  addCartItem = (menuItem, menuItemQuantity) => {
+    const {cartQuantityList} = this.state
+    const {dishId} = menuItem
     const itemIndex = this.fetchCartItemIndex(dishId)
-
     if (itemIndex === -1) {
-      cartList.push({[dishId]: menuItem})
-      this.setState(cartList)
+      this.setState(prevState => ({
+        cartList: [...prevState.cartList, {[dishId]: menuItem}],
+        cartQuantityList: {
+          ...prevState.cartQuantityList,
+          [dishId]: menuItemQuantity,
+        },
+      }))
     } else {
-      const cartItem = cartList[itemIndex]
-      const oldQuantity = cartItem[dishId].menuItemQuantity
+      const oldQuantity = parseInt(cartQuantityList[dishId])
       const newQuantity = oldQuantity + menuItemQuantity
-      cartList[itemIndex][dishId].menuItemQuantity = newQuantity
-      this.setState({cartList})
+      cartQuantityList[dishId] = newQuantity
+      this.setState({cartQuantityList})
     }
   }
 
   incrementCartItemQuantity = event => {
-    console.log('inc')
-    const {cartList} = this.state
+    const {cartQuantityList} = this.state
     const {value} = event.target
     const dish = JSON.parse(value)
     const {dishId} = dish
-    const itemIndex = this.fetchCartItemIndex(dishId)
-    const cartItem = cartList[itemIndex]
-    cartItem[dishId].menuItemQuantity += 1
-    this.setState(cartList)
+    const newQuantity = cartQuantityList[dishId] + 1
+    cartQuantityList[dishId] = newQuantity
+    this.setState({cartQuantityList})
   }
 
   decrementCartItemQuantity = event => {
-    console.log('dec')
-    const {cartList} = this.state
+    const {cartQuantityList, cartList} = this.state
     const {value} = event.target
     const dish = JSON.parse(value)
     const {dishId} = dish
     const itemIndex = this.fetchCartItemIndex(dishId)
-    const cartItem = cartList[itemIndex]
-    const previousCartQuantity = cartItem[dishId].menuItemQuantity
+    const previousCartQuantity = cartQuantityList[dishId]
     if (previousCartQuantity - 1 <= 0) {
+      console.log('pop')
+      delete cartQuantityList[dishId]
       cartList.pop(itemIndex)
-      this.setState(cartList)
+      this.setState({cartQuantityList, cartList})
     } else {
-      cartItem[dishId].menuItemQuantity -= 1
-      this.setState(cartList)
+      cartQuantityList[dishId] = previousCartQuantity - 1
+      this.setState(cartQuantityList)
     }
   }
 
   removeAllCartItems = () => {
-    this.setState({cartList: []})
+    this.setState({cartList: [], cartQuantityList: {}})
   }
 
   removeCartItem = event => {
     const {value} = event.target
-    const {cartList} = this.state
+    const {cartList, cartQuantityList} = this.state
     const itemIndex = this.fetchCartItemIndex(value)
     cartList.pop(itemIndex)
-    this.setState({cartList})
+    delete cartQuantityList[value]
+    this.setState({cartList, cartQuantityList})
   }
 
   render() {
-    const {isLoading, cartList, data, activebutton, activeMenu} = this.state
-    console.log(cartList)
+    const {
+      apiStatus,
+      cartList,
+      data,
+      activeButton,
+      activeMenu,
+      cartQuantityList,
+    } = this.state
     return (
       <CartContext.Provider
         value={{
-          cartList,
           incrementCartItemQuantity: this.incrementCartItemQuantity,
           decrementCartItemQuantity: this.decrementCartItemQuantity,
-          isLoading,
           addCartItem: this.addCartItem,
           removeAllCartItems: this.removeAllCartItems,
           removeCartItem: this.removeCartItem,
-          data,
-          activebutton,
-          activeMenu,
           switchMenu: this.switchMenu,
           fetchCartItemIndex: this.fetchCartItemIndex,
+          apiStatus,
+          cartList,
+          data,
+          activeButton,
+          activeMenu,
+          cartQuantityList,
         }}
       >
         <Switch>

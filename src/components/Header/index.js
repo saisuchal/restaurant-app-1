@@ -12,16 +12,16 @@ const Header = props => {
   return (
     <CartContext.Consumer>
       {value => {
-        const {isLoading, data, cartList} = value
+        const {data, cartList} = value
         const cartLength = Object.keys(cartList).length
         return (
-          !isLoading && (
-            <div className="header-div">
-              <Link to="/" className="link-style">
-                <div className="heading-div">
-                  <h1 className="heading">{data.restaurantName}</h1>
-                </div>
-              </Link>
+          <div className="header-div">
+            <Link to="/" className="link-style">
+              <div className="heading-div">
+                <h1 className="heading">{data.restaurantName}</h1>
+              </div>
+            </Link>
+            <div className="order-logout-div">
               <div className="orders-div">
                 <p className="my-orders">My Orders</p>
                 <Link to="/cart">
@@ -42,7 +42,7 @@ const Header = props => {
                 Logout
               </button>
             </div>
-          )
+          </div>
         )
       }}
     </CartContext.Consumer>
