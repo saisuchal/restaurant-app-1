@@ -141,3 +141,12 @@
     border-radius: 5px;
   }
 }
+
+@media screen and (max-width: 575px) {
+  .dish-image {
+    height: 100px;
+    width: 100px;
+    border-radius: 10px;
+    margin-left: 10px;
+  }
+}

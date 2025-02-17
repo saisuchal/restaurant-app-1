@@ -30,8 +30,8 @@ class Login extends Component {
     if (response.ok) {
       const jwtToken = data.jwt_token
       Cookies.set('jwt_token', jwtToken, {expires: 7})
-      this.setState({error: false})
       history.replace('/')
+      window.location.reload()
     } else {
       this.setState({error: true, errorMsg: data.error_msg})
     }
@@ -44,9 +44,10 @@ class Login extends Component {
     if (jwtToken !== undefined) {
       history.replace('/')
     }
+
     return (
       <div className="login-div">
-        <form onSubmit={this.submitCredentials} className="login-form">
+        <form className="login-form" onSubmit={this.submitCredentials}>
           <h1 className="login-heading">UNI Resto Cafe</h1>
           <label htmlFor="username" className="login-label">
             USERNAME
@@ -65,6 +66,7 @@ class Login extends Component {
             id="password"
             onChange={this.passwordInput}
             className="input-field"
+            autoComplete="on"
           />
           <button type="submit" className="login-button">
             Login

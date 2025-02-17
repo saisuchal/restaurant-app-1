@@ -7,7 +7,6 @@ const Cart = () => (
   <CartContext.Consumer>
     {value => {
       const {cartList, removeAllCartItems} = value
-      console.log(cartList)
       const emptyCartView = (
         <div className="empty-cart-div">
           <img

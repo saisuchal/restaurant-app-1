@@ -13,7 +13,6 @@ const MenuCategories = () => (
         cartQuantityList,
         apiStatus,
       } = value
-      console.log(activeMenu)
       return (
         apiStatus === 'SUCCESS' && (
           <>

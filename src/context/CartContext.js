@@ -4,15 +4,14 @@ const CartContext = React.createContext({
   cartList: [],
   incrementCartItemQuantity: () => {},
   decrementCartItemQuantity: () => {},
-  fetchData: () => {},
   removeAllCartItems: () => {},
   removeCartItem: () => {},
   addCartItem: () => {},
+  switchMenu: () => {},
   data: {},
   activeButton: '',
   activeMenu: [],
   apiStatus: '',
-  fetchCartItemIndex: () => {},
   cartQuantityList: {},
 })
 

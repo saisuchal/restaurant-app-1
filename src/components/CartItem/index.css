@@ -81,6 +81,7 @@
     height: 100px;
     width: 100px;
     border-radius: 10px;
+    margin-left:10px;
   }
   .cart-quantity-button {
     height: 20px;

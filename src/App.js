@@ -31,9 +31,7 @@ class App extends Component {
   }
 
   fetchData = async () => {
-    this.setState({
-      apiStatus: apiStatusConstants.inProgress,
-    })
+    this.setState({apiStatus: apiStatusConstants.inProgress})
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken !== undefined) {
       const dataUrl =
@@ -186,7 +184,6 @@ class App extends Component {
     const itemIndex = this.fetchCartItemIndex(dishId)
     const previousCartQuantity = cartQuantityList[dishId]
     if (previousCartQuantity - 1 <= 0) {
-      console.log('pop')
       delete cartQuantityList[dishId]
       cartList.pop(itemIndex)
       this.setState({cartQuantityList, cartList})
@@ -227,7 +224,6 @@ class App extends Component {
           removeAllCartItems: this.removeAllCartItems,
           removeCartItem: this.removeCartItem,
           switchMenu: this.switchMenu,
-          fetchCartItemIndex: this.fetchCartItemIndex,
           apiStatus,
           cartList,
           data,

@@ -13,7 +13,6 @@ const Home = () => {
     <CartContext.Consumer>
       {value => {
         const {apiStatus} = value
-        console.log(apiStatus)
         return (
           apiStatus === 'SUCCESS' && (
             <div>
